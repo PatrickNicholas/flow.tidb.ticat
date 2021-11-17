@@ -1,0 +1,7 @@
+help = config ycsb workload
+
+[arg]
+workload = ''
+
+[arg2env]
+bench.ycsb.workload = workload

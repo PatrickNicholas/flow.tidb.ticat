@@ -1,0 +1,67 @@
+help = 
+
+[arg]
+yaml = ''
+cluster-name|cluster|name|N = ''
+version|v = ''
+
+ycsb-repo-address|yscb-repo = ''
+yscb-operation-count|ycsb-op-count = ''
+sysbench_duration = ''
+tpcc_duration = ''
+
+meta-host = ''
+meta-port = ''
+meta-db = ''
+meta-user = root
+
+s3_endpoint = ''
+s3_username = ''
+s3_password = ''
+
+[arg2env]
+tidb.tiup.yaml = yaml
+tidb.cluster = cluster-name
+tidb.version = version
+
+bench.meta.host = meta-host
+bench.meta.port = meta-port
+bench.meta.db-name|db = meta-db
+bench.meta.user = meta-user
+
+bench.ycsb.repo-address = yscb-repo-address
+bench.ycsb.operation-count = ycsb-operation-count
+bench.sysbench.duration = sysbench_duration
+bench.tpcc.duration = tpcc_duration
+
+br.endpoint = s3_endpoint
+br.username = s3_username
+br.password = s3_password
+
+[val2env]
+quantify.generic.ycsb.storage = 'patrick/baseline/ycsb-1T'
+quantify.generic.sysbench.storage = 'patrick/baseline/sysbench_1T'
+quantify.generic.tpcc.storage = 'patrick/baseline/br-5k-warehouses'
+
+[arg2env]
+tidb.tiup.yaml = predefined-yaml-name
+tidb.cluster = cluster-name
+tidb.version = version
+tidb.op.confirm = confirm
+
+br.target = target-db
+br.backup-dir = backup-dir
+
+[env]
+bench.meta.host = read
+bench.meta.port = read
+bench.meta.db-name|db = read
+bench.meta.user = read
+
+bench.tpcc.warehouses = 5000
+bench.sysbench.tables = 1000
+bench.sysbench.table-size = 3000000
+bench.ycsb.record-count = 400000000
+
+[flow/]
+quantify.generic.run.tools

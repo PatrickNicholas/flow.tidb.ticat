@@ -1,0 +1,4 @@
+help = set the workload name for tpcc
+
+[arg]
+workload = ''

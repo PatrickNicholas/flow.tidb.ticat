@@ -1,0 +1,15 @@
+help = run the tool with workloads
+
+[arg]
+workloads = ''
+baseline-address|storage|backup-dir = ''
+
+[arg2env]
+quantify.generic.workloads = workloads
+br.backup-dir = baseline-address
+
+[env]
+bench.workload = read
+
+[flow/]
+** quantify.generic.config.[[bench.workload]].workload [[*quantify.generic.workloads*]] : quantify.generic.run **

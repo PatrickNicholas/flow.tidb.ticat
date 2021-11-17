@@ -1,0 +1,10 @@
+help = run tpcc with workload
+
+[val2env]
+bench.workload = tpcc
+
+[env]
+quantify.generic.tpcc.storage = read
+
+[flow/]
+quantify.generic.run.one-tool workloads=default storage=[[quantify.generic.tpcc.storage]]

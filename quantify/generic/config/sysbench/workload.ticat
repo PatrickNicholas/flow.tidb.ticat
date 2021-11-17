@@ -1,0 +1,7 @@
+help = set the workload name for sysbench
+
+[arg]
+workload = ''
+
+[arg2env]
+bench.sysbench.test-name = workload

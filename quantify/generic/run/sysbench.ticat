@@ -1,0 +1,16 @@
+help = run all generic test with ycsb workload
+
+[args]
+workloads = oltp_point_select,oltp_insert,oltp_delete,oltp_read_only,oltp_read_write,oltp_update_index,oltp_update_non_index,oltp_write_only
+
+[arg2env]
+quantify.generic.workloads = workloads
+
+[val2env]
+bench.workload = sysbench
+
+[env]
+quantify.generic.sysbench.storage = read
+
+[flow/]
+quantify.generic.run.one-tool storage=[[quantify.generic.sysbench.storage]]

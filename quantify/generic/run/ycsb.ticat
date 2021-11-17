@@ -1,0 +1,17 @@
+help = run all generic test with ycsb workload
+
+[args]
+workloads = workloada,workloadb,workloadc,workloadd,workloade,workloadf
+
+[arg2env]
+quantify.generic.workloads = workloads
+
+[val2env]
+bench.workload = ycsb
+
+[env]
+quantify.generic.ycsb.storage = read
+
+[flow/]
+ycsb.config.min
+quantify.generic.run.one-tool storage=[[quantify.generic.ycsb.storage]]

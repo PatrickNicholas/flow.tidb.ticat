@@ -1,0 +1,8 @@
+help = 
+
+
+[val2env]
+quantify.generic.tools = sysbench,tpcc,ycsb
+
+[flow/]
+** quantify.generic.run.[[*quantify.generic.tools*]] **

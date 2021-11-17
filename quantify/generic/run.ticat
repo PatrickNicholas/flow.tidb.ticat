@@ -1,0 +1,9 @@
+help = run generic flow with workload and record qps & lantecy metrics
+abbr = run
+
+[flow/]
+tidb.destroy+new
+^br.restore.s3
+compare.threads.conf 16,32,64,128,256,512,1024
+^compare.threads bench.run
+tidb.rm
