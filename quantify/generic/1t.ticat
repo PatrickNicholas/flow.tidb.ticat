@@ -4,6 +4,7 @@ help =
 yaml = ''
 cluster-name|cluster|name|N = ''
 version|v = ''
+confirm|cfm = off
 
 ycsb-repo-address|yscb-repo = ''
 yscb-operation-count|ycsb-op-count = ''
@@ -23,6 +24,7 @@ s3_password = ''
 tidb.tiup.yaml = yaml
 tidb.cluster = cluster-name
 tidb.version = version
+tidb.op.confirm = confirm
 
 bench.meta.host = meta-host
 bench.meta.port = meta-port
@@ -43,25 +45,16 @@ quantify.generic.ycsb.storage = 'patrick/baseline/ycsb-1T'
 quantify.generic.sysbench.storage = 'patrick/baseline/sysbench_1T'
 quantify.generic.tpcc.storage = 'patrick/baseline/br-5k-warehouses'
 
-[arg2env]
-tidb.tiup.yaml = predefined-yaml-name
-tidb.cluster = cluster-name
-tidb.version = version
-tidb.op.confirm = confirm
-
-br.target = target-db
-br.backup-dir = backup-dir
+bench.tpcc.warehouses = 5000
+bench.sysbench.tables = 1000
+bench.sysbench.table-size = 3000000
+bench.ycsb.record-count = 400000000
 
 [env]
 bench.meta.host = read
 bench.meta.port = read
 bench.meta.db-name|db = read
 bench.meta.user = read
-
-bench.tpcc.warehouses = 5000
-bench.sysbench.tables = 1000
-bench.sysbench.table-size = 3000000
-bench.ycsb.record-count = 400000000
 
 [flow/]
 quantify.generic.run.tools
