@@ -41,9 +41,9 @@ br.username = s3_username
 br.password = s3_password
 
 [val2env]
-quantify.prepare.ycsb.storage = 'patrick/baseline/ycsb-1000'
-quantify.prepare.sysbench.storage = 'patrick/baseline/sysbench_1table_1000row'
-quantify.prepare.tpcc.storage = 'patrick/baseline/br-1warehouse'
+quantify.generic.ycsb.storage = 'patrick/baseline/ycsb-1000'
+quantify.generic.sysbench.storage = 'patrick/baseline/sysbench_1table_1000row'
+quantify.generic.tpcc.storage = 'patrick/baseline/br-1warehouse'
 
 bench.tpcc.warehouses = 1
 bench.sysbench.tables = 1
