@@ -12,6 +12,5 @@ br.backup-dir = storage
 tidb.destroy+new
 ^[[bench.workload]].load
 sleep [[tidb.compaction.wait.secs]]
-bench.data.gen-tag
 ^br.backup.s3
 tidb.rm
