@@ -6,8 +6,8 @@ cluster-name|cluster|name|N = ''
 version|v = ''
 confirm|cfm = off
 
-ycsb-repo-address|yscb-repo = ''
-yscb-operation-count|ycsb-op-count = ''
+ycsb-repo-address|ycsb-repo = ''
+ycsb-operation-count|ycsb-op-count = ''
 sysbench_duration = ''
 tpcc_duration = ''
 
@@ -31,7 +31,7 @@ bench.meta.port = meta-port
 bench.meta.db-name|db = meta-db
 bench.meta.user = meta-user
 
-bench.ycsb.repo-address = yscb-repo-address
+bench.ycsb.repo-address = ycsb-repo-address
 bench.ycsb.operation-count = ycsb-operation-count
 bench.sysbench.duration = sysbench_duration
 bench.tpcc.duration = tpcc_duration
