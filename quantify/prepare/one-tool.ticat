@@ -1,0 +1,17 @@
+help = load one tools
+
+[arg]
+compaction-wait-secs|compaction-wait = 0
+storage = ''
+
+[arg2env]
+tidb.compaction.wait.secs = compaction-wait-secs
+br.backup-dir = storage
+
+[flow/]
+tidb.destroy+new
+^[[bench.workload]].load
+sleep [[tidb.compaction.wait.secs]]
+bench.data.gen-tag
+^br.backup.s3
+tidb.rm

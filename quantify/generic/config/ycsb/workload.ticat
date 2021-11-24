@@ -5,3 +5,4 @@ workload = ''
 
 [arg2env]
 bench.ycsb.workload = workload
+bench.compare.threads = 800,1000,1200

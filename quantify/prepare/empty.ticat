@@ -1,0 +1,56 @@
+help = 
+
+[arg]
+yaml = ''
+cluster-name|cluster|name|N = ''
+version|v = ''
+confirm|cfm = off
+
+ycsb-repo-address|yscb-repo = ''
+
+meta-host = ''
+meta-port = ''
+meta-db = ''
+meta-user = root
+
+s3_endpoint = ''
+s3_username = ''
+s3_password = ''
+
+[arg2env]
+tidb.tiup.yaml = yaml
+tidb.cluster = cluster-name
+tidb.version = version
+tidb.op.confirm = confirm
+
+bench.meta.host = meta-host
+bench.meta.port = meta-port
+bench.meta.db-name|db = meta-db
+bench.meta.user = meta-user
+
+bench.ycsb.repo-address = yscb-repo-address
+
+br.endpoint = s3_endpoint
+br.username = s3_username
+br.password = s3_password
+
+[val2env]
+quantify.prepare.ycsb.storage = 'patrick/baseline/ycsb-1000'
+quantify.prepare.sysbench.storage = 'patrick/baseline/sysbench_1table_1000row'
+quantify.prepare.tpcc.storage = 'patrick/baseline/br-1warehouse'
+
+bench.tpcc.warehouses = 1
+bench.sysbench.tables = 1
+bench.sysbench.table-size = 1000
+bench.ycsb.record-count = 1000
+
+quantify.prepare.tools = sysbench,tpcc,ycsb
+
+[env]
+bench.meta.host = read
+bench.meta.port = read
+bench.meta.db-name|db = read
+bench.meta.user = read
+
+[flow/]
+** quantify.prepare.[[*quantify.prepare.tools*]] **

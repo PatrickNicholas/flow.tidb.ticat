@@ -1,0 +1,12 @@
+help = load tpcc baseline
+
+[val2env]
+bench.workload = tpcc
+bench.tpcc.load.threads = 1000
+bench.tpcc.load.analyze = false
+
+[env]
+quantify.prepare.tpcc.storage = read
+
+[flow/]
+quantify.prepare.one-tool storage=[[quantify.prepare.tpcc.storage]]

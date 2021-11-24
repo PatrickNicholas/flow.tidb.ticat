@@ -1,0 +1,12 @@
+help =
+
+[val2env]
+bench.workload = sysbench
+bench.sysbench.load.threads = 1000
+bench.sysbench.load.analyze = false
+
+[env]
+quantify.prepare.sysbench.storage = read
+
+[flow/]
+quantify.prepare.one-tool storage=[[quantify.prepare.sysbench.storage]]

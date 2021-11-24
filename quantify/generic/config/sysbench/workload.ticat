@@ -5,3 +5,4 @@ workload = ''
 
 [arg2env]
 bench.sysbench.test-name = workload
+bench.compare.threads = 800,1000,1200

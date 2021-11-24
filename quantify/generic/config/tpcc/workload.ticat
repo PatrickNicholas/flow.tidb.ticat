@@ -2,3 +2,6 @@ help = set the workload name for tpcc
 
 [arg]
 workload = ''
+
+[val2env]
+bench.compare.threads = 600,800,1000
