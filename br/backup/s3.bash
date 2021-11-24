@@ -35,7 +35,7 @@ env AWS_ACCESS_KEY_ID="${username}" \
     AWS_SECRET_ACCESS_KEY="${password}" \
     ${br_bin} backup ${target} \
         --pd "${pd}" \
-        --s3.endpoint "http://${endpoint}" \
+        --s3.endpoint "${endpoint}" \
         -s "s3://${dir}" \
         --check-requirements=false${checksum} \
         --concurrency "${threads}"
