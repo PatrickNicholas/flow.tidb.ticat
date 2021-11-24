@@ -2,7 +2,7 @@ help =
 
 
 [val2env]
-quantify.generic.tools = sysbench,tpcc,ycsb
+quantify.generic.tools = ycsb
 
 [flow/]
 bench.meta.config
