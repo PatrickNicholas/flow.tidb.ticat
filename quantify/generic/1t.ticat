@@ -1,4 +1,4 @@
-help = 
+help = run generic test with 1T data
 
 [arg]
 yaml = ''
