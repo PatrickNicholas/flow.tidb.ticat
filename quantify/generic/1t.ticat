@@ -49,6 +49,7 @@ bench.tpcc.warehouses = 5000
 bench.sysbench.tables = 1000
 bench.sysbench.table-size = 3000000
 bench.ycsb.record-count = 400000000
+bench.ycsb.insert-count = 400000000
 
 [env]
 bench.meta.host = read
