@@ -2,7 +2,7 @@ help = load tpcc baseline
 
 [val2env]
 bench.workload = tpcc
-bench.tpcc.load.threads = 1000
+bench.tpcc.load.threads = 200
 bench.tpcc.load.analyze = false
 
 [env]
