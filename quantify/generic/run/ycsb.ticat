@@ -14,4 +14,4 @@ quantify.generic.ycsb.storage = read
 
 [flow/]
 ycsb.config.min
-quantify.generic.run.one-tool storage=[[quantify.generic.ycsb.storage]]
+quantify.generic.run.one-tool storage=[[quantify.generic.ycsb.storage]] workloads=[[quantify.generic.workloads]]

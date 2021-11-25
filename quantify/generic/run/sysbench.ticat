@@ -13,4 +13,4 @@ bench.workload = sysbench
 quantify.generic.sysbench.storage = read
 
 [flow/]
-quantify.generic.run.one-tool storage=[[quantify.generic.sysbench.storage]]
+quantify.generic.run.one-tool storage=[[quantify.generic.sysbench.storage]] workloads=[[quantify.generic.workloads]]
