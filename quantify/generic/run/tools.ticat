@@ -1,8 +1,10 @@
 help = 
 
+[arg]
+tools = sysbench,tpcc,yscb
 
-[val2env]
-quantify.generic.tools = sysbench,tpcc,ycsb
+[arg2env]
+quantify.generic.tools = tools
 
 [flow/]
 bench.meta.config
