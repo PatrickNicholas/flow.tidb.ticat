@@ -1,7 +1,7 @@
 help = 
 
 [arg]
-tools = sysbench,tpcc,yscb
+tools = sysbench,tpcc,ycsb
 
 [arg2env]
 quantify.generic.tools = tools
