@@ -46,6 +46,8 @@ bench.ycsb.record-count = 4000000000
 
 quantify.prepare.tools = sysbench,tpcc,ycsb
 
+br.threads = 1000
+
 [env]
 bench.meta.host = read
 bench.meta.port = read

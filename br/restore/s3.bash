@@ -38,4 +38,4 @@ env AWS_ACCESS_KEY_ID="${username}" \
         --s3.endpoint "${endpoint}" \
         -s "s3://${dir}" \
         --check-requirements=false${checksum} \
-        --concurrency "${threads}"
+        --concurrency "${threads}" > /tmp/restore-`date +%s`.log 2>&1
