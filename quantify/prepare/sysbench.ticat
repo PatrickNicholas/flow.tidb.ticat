@@ -2,7 +2,7 @@ help =
 
 [val2env]
 bench.workload = sysbench
-bench.sysbench.load.threads = 200
+bench.sysbench.load.threads = 1000
 bench.sysbench.load.analyze = false
 
 [env]
