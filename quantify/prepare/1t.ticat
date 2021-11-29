@@ -17,7 +17,7 @@ s3_endpoint = ''
 s3_username = ''
 s3_password = ''
 
-tools = sysbenc,tpcc,ycsb
+tools = sysbench,tpcc,ycsb
 
 [arg2env]
 tidb.tiup.yaml = yaml
