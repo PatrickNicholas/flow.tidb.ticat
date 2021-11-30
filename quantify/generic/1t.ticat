@@ -41,11 +41,11 @@ br.username = s3_username
 br.password = s3_password
 
 [val2env]
-quantify.generic.ycsb.storage = 'patrick/baseline/ycsb-1T'
-quantify.generic.sysbench.storage = 'patrick/baseline/sysbench_1T'
-quantify.generic.tpcc.storage = 'patrick/baseline/br-5k-warehouses'
+quantify.generic.ycsb.storage = 'patrick/baseline/ycsb-1T-400M'
+quantify.generic.sysbench.storage = 'patrick/baseline/sysbench_1T_1ktable_3000krow'
+quantify.generic.tpcc.storage = 'patrick/baseline/br-1T-6kwarehouses'
 
-bench.tpcc.warehouses = 5000
+bench.tpcc.warehouses = 6000
 bench.sysbench.tables = 1000
 bench.sysbench.table-size = 3000000
 bench.ycsb.record-count = 400000000
