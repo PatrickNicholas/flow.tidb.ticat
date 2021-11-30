@@ -40,7 +40,7 @@ quantify.prepare.tools = tools
 
 [val2env]
 quantify.prepare.ycsb.storage = 'patrick/baseline/ycsb-1T-400M'
-quantify.prepare.sysbench.storage = 'patrick/baseline/sysbench_1T_1ktable_3000krow'
+quantify.prepare.sysbench.storage = 'patrick/baseline/sysbench-1T-1ktable-3000krow'
 quantify.prepare.tpcc.storage = 'patrick/baseline/br-1T-6kwarehouse'
 
 bench.tpcc.warehouses = 6000

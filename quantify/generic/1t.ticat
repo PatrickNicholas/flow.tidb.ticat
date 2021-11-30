@@ -43,7 +43,7 @@ br.password = s3_password
 [val2env]
 quantify.generic.ycsb.storage = 'patrick/baseline/ycsb-1T-400M'
 quantify.generic.sysbench.storage = 'patrick/baseline/sysbench_1T_1ktable_3000krow'
-quantify.generic.tpcc.storage = 'patrick/baseline/br-1T-6kwarehouses'
+quantify.generic.tpcc.storage = 'patrick/baseline/br-1T-6kwarehouse'
 
 bench.tpcc.warehouses = 6000
 bench.sysbench.tables = 1000
