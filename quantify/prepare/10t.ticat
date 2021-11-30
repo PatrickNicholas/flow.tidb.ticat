@@ -47,6 +47,7 @@ bench.tpcc.warehouses = 60000
 bench.sysbench.tables = 10000
 bench.sysbench.table-size = 3000000
 bench.ycsb.record-count = 4000000000
+bench.ycsb.insert-count = 4000000000
 
 br.threads = 1000
 
