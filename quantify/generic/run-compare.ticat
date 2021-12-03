@@ -1,5 +1,6 @@
 help = run generic flow with workload and record qps & lantecy metrics
 
 [flow/]
+tidb.start
 ^compare.threads bench.run
 sleep 180
