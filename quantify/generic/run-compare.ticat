@@ -1,0 +1,5 @@
+help = run generic flow with workload and record qps & lantecy metrics
+
+[flow/]
+^compare.threads bench.run
+sleep 180
