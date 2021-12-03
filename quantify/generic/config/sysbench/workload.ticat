@@ -7,4 +7,4 @@ workload = ''
 bench.sysbench.test-name = workload
 
 [val2env]
-bench.compare.threads = 200,400,600
+bench.compare.threads = 200,300,400
