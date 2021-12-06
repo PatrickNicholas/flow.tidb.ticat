@@ -1,8 +1,12 @@
 #!/bin/env python3 
 # encoding: utf-8
 
+from time import sleep, strftime
+from datetime import datetime
 import fire
 import csv
+import requests
+import os
 
 import mysql.connector
 
@@ -49,6 +53,7 @@ def _unpack_sysbench_params(workload, conn):
 def _format_dict(params):
     return '\n'.join([ '{}={}'.format(k, v) for k, v in params.items() ])
 
+
 def _dump_sysbench(writer, curs):
     writer.writerow(['workload', 'qps', 'tps', 'min(ms)', 'avg(ms)', 'p95(ms)', 'max(ms)', 'notes'])
     query = 'select * from sysbench';
@@ -70,6 +75,7 @@ def _dump_sysbench(writer, curs):
             _format_dict(params),
         ])
         
+
 def _dump_tpcc(writer, curs):
     writer.writerow(['type', 'ops', 'avg(ms)', 'p50(ms)', 'p90(ms)', 'p95(ms)', 'p99(ms)', 'p999(ms)', 'max(ms)', 'notes'])
     query = 'select * from tpcc'
@@ -125,7 +131,93 @@ def _dump_ycsb(writer, curs):
             row.max,
             _format_dict(params)
         ])
+        
 
+ACCESS_TOKEN = None
+
+def validate_resp(url, r, expect=0):
+    if r.status_code != 200:
+        raise IOError("request {}: {}, (code {})".format(url, r.text, r.status_code))
+
+    value = r.json()
+    if value.get('code') != 0 and value.get('code') != expect:
+        raise RuntimeError("request {}: {}, (code {})".format(
+            url, value.get('msg'), value.get('code')))
+    return value
+
+
+def get_access_token():
+    global ACCESS_TOKEN
+    if ACCESS_TOKEN is not None:
+        return ACCESS_TOKEN
+
+    url = 'https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal'
+    headers = {'Content-Type': 'application/json; charset=utf-8'}
+    payload = {
+        'app_id': os.getenv('APP_ID'),
+        'app_secret': os.getenv('APP_SECRET'),
+    }
+    r = requests.post(url, json=payload, headers=headers)
+    value = validate_resp(url, r)
+    ACCESS_TOKEN = 'Bearer {}'.format(value['tenant_access_token'])
+    return ACCESS_TOKEN
+
+    
+def query_import_url(ticket):
+    url = 'https://open.feishu.cn/open-apis/sheets/v2/import/result'
+    payload = {'ticket': ticket}
+    headers = {'Authorization': get_access_token()}
+    r = requests.get(url, params=payload, headers=headers)
+    resp = validate_resp(url, r, expect=90228)
+    if resp.get('code') == 90228:
+        # in progress
+        sleep(1)
+        return query_import_url(ticket)
+
+    data = resp.get('data', {})
+    if data.get('warningCode') != 0:
+        raise RuntimeError("query import result: {}", resp.get('warningCode'))
+    return data.get('url')
+
+
+def upload_sheets(folder_token, name, content):
+    url = 'https://open.feishu.cn/open-apis/sheets/v2/import'
+    headers = {'Authorization': get_access_token()}
+    payload = {
+        'name': name,
+        'file': content,
+        'folderToken': folder_token,
+    }
+    r = requests.post(url, json=payload, headers=headers)
+    resp = validate_resp(url, r)
+    data = resp.get('data', {})
+    ticket = data.get('ticket')
+    return query_import_url(ticket)
+
+
+def query_app_root_meta():
+    url = 'https://open.feishu.cn/open-apis/drive/explorer/v2/root_folder/meta'
+    headers = {'Authorization': get_access_token()}
+    r = requests.get(url, headers=headers)
+    resp = validate_resp(url, r)
+    data = resp.get('data', {})
+    return data.get('token')
+
+
+def send_notice(urls):
+    hook_id = os.getenv("NOTICE_HOOK_ID")
+    url = 'https://open.feishu.cn/open-apis/bot/v2/hook/{}'.format(hook_id)
+    headers = {'Content-Type': 'application/json' }
+    payload = {
+        'msg_type': 'text',
+        'content': {
+            'text': 'OLTP generic test result (QPS & RT): \n{}'.format('\n'.join(urls)),
+        }
+    }
+    r = requests.post(url, json=payload, headers=headers)
+    if r.status_code != 200:
+        raise IOError("request {}: {}, (code {})".format(url, r.text, r.status_code))
+    
 
 def main(host, database, user):
     config = {
@@ -134,21 +226,38 @@ def main(host, database, user):
       'database': database,
       'raise_on_warnings': True
     }
+    
+    mapping = {   # comp => method
+        "sysbench": _dump_sysbench,
+        "tpcc": _dump_tpcc,
+        "ycsb": _dump_ycsb,
+    }
 
+    files = {}
     conn = mysql.connector.connect(**config)
     curs = conn.cursor(named_tuple=True)
-    # with open('{}-sysbench.csv'.format(database), 'w', newline='') as file:
-    #     writer = csv.writer(file)
-    #     _dump_sysbench(writer, curs)
-    with open('{}-tpcc.csv'.format(database), 'w', newline='') as file:
-        writer = csv.writer(file)
-        _dump_tpcc(writer, curs)
-    # with open('{}-ycsb.csv'.format(database), 'w', newline='') as file:
-    #     writer = csv.writer(file)
-    #     _dump_ycsb(writer, curs)
+    for (comp, method) in mapping.items():
+        files[comp] = '/tmp/{}-{}.csv'.format(database, comp)
+        with open(files[comp], 'w', newline='') as file:
+            writer = csv.writer(file)
+            method(writer, curs)
     curs.close()
     conn.close()
+
+    urls = []
+    now = datetime.now()
+    folder_token = '' # os.getenv('FOLDER_TOKEN') # query_app_root_meta()
+    for (comp, filename) in files.items():
+        with open(filename, 'rb') as file:
+            name = now.strftime('%Y-%m-%d %H:%M-generic-{}.csv'.format(comp))
+            content = file.read()
+            urls.append(upload_sheets(folder_token, name, [x for x in content]))
+    
+    send_notice(urls)
                 
+    for (_, name) in files.items():
+        os.remove(name)
+
 
 if __name__ == '__main__':
     fire.Fire()
