@@ -1,0 +1,17 @@
+help = drop tables for sysbench workloads
+
+[arg]
+from = 0
+to = 1
+
+[arg2env]
+quantify.stability.drop-table.sysbench.from = from
+quantify.stability.drop-table.sysbench.to = to
+
+[env]
+mysql.host = read
+mysql.port = read
+mysql.user = read
+
+[dep]
+mysql = to drop tables 
