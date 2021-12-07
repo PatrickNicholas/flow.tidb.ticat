@@ -1,4 +1,4 @@
-help = run tpcc with workload
+help = run generic test with tpcc workload
 
 [val2env]
 bench.workload = tpcc

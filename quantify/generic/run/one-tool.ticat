@@ -1,4 +1,4 @@
-help = run the tool with workloads
+help = execute quantify.generic.run with some workloads
 
 [arg]
 workloads = ''

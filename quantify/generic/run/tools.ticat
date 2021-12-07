@@ -1,4 +1,4 @@
-help = 
+help = run generic test for all specified tools
 
 [arg]
 tools = sysbench,tpcc,ycsb

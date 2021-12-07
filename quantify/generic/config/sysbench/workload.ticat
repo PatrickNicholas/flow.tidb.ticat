@@ -1,4 +1,4 @@
-help = set the workload name for sysbench
+help = set the workload name and compare threads for sysbench
 
 [arg]
 workload = ''

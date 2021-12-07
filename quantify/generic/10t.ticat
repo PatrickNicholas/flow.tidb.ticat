@@ -1,4 +1,4 @@
-help = run generic test(QPS & RT) with 1T dataset
+help = run generic test(QPS & RT) with 10T dataset
 
 [arg]
 yaml = ''
@@ -41,16 +41,16 @@ br.username = s3_username
 br.password = s3_password
 
 [val2env]
-quantify.generic.tpcc.storage = 'patrick/baseline/br-1T-6kwarehouse'
-bench.tpcc.warehouses = 6000
+quantify.prepare.tpcc.storage = 'patrick/baseline/br-10T-60kwarehouse'
+bench.tpcc.warehouses = 60000
 
-quantify.generic.sysbench.storage = 'patrick/baseline/sysbench-1T-1ktable-3000krow'
-bench.sysbench.tables = 1000
+quantify.prepare.sysbench.storage = 'patrick/baseline/sysbench-10T-10ktable-3000krow'
+bench.sysbench.tables = 10000
 bench.sysbench.table-size = 3000000
 
-quantify.generic.ycsb.storage = 'patrick/baseline/ycsb-1T-400M'
-bench.ycsb.record-count = 400000000
-bench.ycsb.insert-count = 400000000
+quantify.prepare.ycsb.storage = 'patrick/baseline/ycsb-10T-4B'
+bench.ycsb.record-count = 4000000000
+bench.ycsb.insert-count = 4000000000
 
 br.threads = 1000
 br.checksum = false

@@ -1,4 +1,4 @@
-help = config ycsb workload
+help = set the workload name and compare threads for ycsb
 
 [arg]
 workload = ''

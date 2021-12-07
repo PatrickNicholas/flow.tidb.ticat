@@ -1,4 +1,4 @@
-help = run generic flow with workload and record qps & lantecy metrics
+help = run generic test flow with workload and record qps & lantecy metrics
 abbr = run
 
 [flow/]

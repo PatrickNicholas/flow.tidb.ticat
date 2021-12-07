@@ -1,4 +1,4 @@
-help = prepare 1T baseline data
+help = load and backup 1T baseline datasetsetsetset
 
 [arg]
 yaml = ''
@@ -39,13 +39,14 @@ br.password = s3_password
 quantify.prepare.tools = tools
 
 [val2env]
-quantify.prepare.ycsb.storage = 'patrick/baseline/ycsb-1T-400M'
-quantify.prepare.sysbench.storage = 'patrick/baseline/sysbench-1T-1ktable-3000krow'
 quantify.prepare.tpcc.storage = 'patrick/baseline/br-1T-6kwarehouse'
-
 bench.tpcc.warehouses = 6000
+
+quantify.prepare.sysbench.storage = 'patrick/baseline/sysbench-1T-1ktable-3000krow'
 bench.sysbench.tables = 1000
 bench.sysbench.table-size = 3000000
+
+quantify.prepare.ycsb.storage = 'patrick/baseline/ycsb-1T-400M'
 bench.ycsb.record-count = 400000000
 bench.ycsb.insert-count = 400000000
 

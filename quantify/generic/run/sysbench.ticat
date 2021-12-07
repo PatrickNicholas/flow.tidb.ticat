@@ -1,4 +1,4 @@
-help = run all generic test with ycsb workload
+help = run generic test with ycsb workload
 
 [args]
 workloads = oltp_point_select,oltp_insert,oltp_delete,oltp_read_only,oltp_read_write,oltp_update_index,oltp_update_non_index,oltp_write_only

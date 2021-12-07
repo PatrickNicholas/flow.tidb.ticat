@@ -1,4 +1,4 @@
-help = set the workload name for tpcc
+help = set the workload name and compare threads for tpcc
 
 [arg]
 workload = ''

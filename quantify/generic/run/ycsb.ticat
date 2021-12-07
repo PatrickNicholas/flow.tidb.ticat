@@ -1,4 +1,4 @@
-help = run all generic test with ycsb workload
+help = run generic test with ycsb workload
 
 [args]
 workloads = workloada,workloadb,workloadc,workloadd,workloade,workloadf
