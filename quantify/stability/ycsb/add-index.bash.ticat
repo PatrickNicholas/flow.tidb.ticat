@@ -1,0 +1,9 @@
+help = Add index in column usertable.FIELD0 of ycsb workload
+
+[env]
+mysql.host = read
+mysql.port = read
+mysql.user = read
+
+[dep]
+mysql = to add index
