@@ -1,0 +1,5 @@
+help = reload pd,tikv nodes of a cluster and record duration
+
+[flow/]
+tidb.reload roles=pd,tikv
+bench.duration.record tidb.reload

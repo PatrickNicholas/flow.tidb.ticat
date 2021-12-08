@@ -6,10 +6,6 @@ cluster-name|cluster|name|N = ''
 version|v = ''
 confirm|cfm = off
 
-duration = ''
-threads = ''
-workload = oltp_read_write
-
 meta-host = ''
 meta-port = ''
 meta-db = ''
@@ -30,7 +26,6 @@ bench.meta.port = meta-port
 bench.meta.db-name|db = meta-db
 bench.meta.user = meta-user
 
-bench.ycsb.operation-count
 
 br.endpoint = s3_endpoint
 br.username = s3_username
@@ -48,6 +43,7 @@ bench.sysbench.table-size = 3000000
 quantify.generic.ycsb.storage = 'patrick/baseline/ycsb-1T-400M'
 bench.ycsb.record-count = 400000000
 bench.ycsb.insert-count = 400000000
+bench.ycsb.operation-count = 30000000
 
 br.threads = 1000
 br.checksum = false
