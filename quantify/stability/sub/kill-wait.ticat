@@ -1,5 +1,9 @@
 help = kill a tikv node randomly and wait until no jitters
 
+[env]
+tidb.node.host = write
+tidb.node.port = write
+
 [flow/]
 tidb.ctl.kill
 env.map tidb.node.killed.host tidb.node.host
