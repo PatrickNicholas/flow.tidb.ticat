@@ -1,0 +1,19 @@
+help = run kill store test
+
+[arg]
+flow = ''
+delay = 5m
+
+[arg2env]
+quantify.stability.run.flow = flow
+quantify.stability.run.delay = delay
+
+[flow/]
+tidb.destroy+new
+^br.restore.s3
+[[quantify.stability.run.flow]] %delay=[[quantify.stability.run.delay]]
+bench.meta.config
+bench.run
+bench.scan.jitter
+bg.wait
+tidb.rm
