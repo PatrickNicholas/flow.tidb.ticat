@@ -2,10 +2,10 @@ help = kill a tikv node randomly and wait until no jitters
 
 [flow/]
 tidb.ctl.kill
-quantify.stability.sub.update-env key=tidb.node.host value=tidb.node.killed.host from-env=true
-quantify.stability.sub.update-env key=tidb.node.port value=tidb.node.killed.port from-env=true
+env.map tidb.node.killed.host tidb.node.host
+env.map tidb.node.killed.port tidb.node.port
 tidb.watch.qps-jitter-less-than threshold=0.10
 tidb.watch.no-region
-quantify.stability.sub.update-env key=tidb.watch.no-region.begin value=tidb.watch.no-qps-jitter.begin from-env=true
+env.map tidb.watch.no-qps-jitter.begin tidb.watch.no-region.begin
 bench.duration.record tidb.watch.no-region
 bench.duration.record tidb.watch.no-qps-jitter

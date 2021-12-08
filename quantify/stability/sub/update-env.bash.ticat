@@ -1,6 +1,0 @@
-help = update env variable
-
-[arg]
-key = ''
-value = ''
-from-env = false
