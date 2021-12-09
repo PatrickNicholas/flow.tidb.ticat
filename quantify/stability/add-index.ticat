@@ -15,6 +15,8 @@ s3_endpoint = ''
 s3_username = ''
 s3_password = ''
 
+bench-tag = add-index
+
 [arg2env]
 tidb.tiup.yaml = yaml
 tidb.cluster = cluster-name
@@ -25,25 +27,13 @@ bench.meta.host = meta-host
 bench.meta.port = meta-port
 bench.meta.db-name|db = meta-db
 bench.meta.user = meta-user
-
+bench.tag = bench-tag
 
 br.endpoint = s3_endpoint
 br.username = s3_username
 br.password = s3_password
 
 [val2env]
-quantify.generic.tpcc.storage = 'patrick/baseline/br-1T-6kwarehouse'
-bench.workload = ycsb
-bench.tpcc.warehouses = 6000
-
-quantify.generic.sysbench.storage = 'patrick/baseline/sysbench-1T-1ktable-3000krow'
-bench.sysbench.tables = 1000
-bench.sysbench.table-size = 3000000
-
-quantify.generic.ycsb.storage = 'patrick/baseline/ycsb-1T-400M'
-bench.ycsb.record-count = 400000000
-bench.ycsb.insert-count = 400000000
-bench.ycsb.operation-count = 30000000
 
 br.threads = 1000
 br.checksum = false
@@ -55,10 +45,5 @@ bench.meta.db-name|db = read
 bench.meta.user = read
 
 [flow/]
-tidb.destroy+new
-^br.restore.s3
-quantify.stability.ycsb.add-index %delay=5m
-bench.run
-bench.scan.jitter
-bg.wait
-tidb.rm
+quantify.workloads.ycsb.1t
+quantify.stability.run flow=quantify.stability.ycsb.add-index event-prefix=add-index
