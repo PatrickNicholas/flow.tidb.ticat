@@ -2,18 +2,21 @@ help = run kill store test
 
 [arg]
 flow = ''
+event-prefix = ''
 delay = 5m
 
-[arg2env]
-quantify.stability.run.flow = flow
-quantify.stability.run.delay = delay
+[env]
+quantify.[[event-prefix]].begin = write
+quantify.[[event-prefix]].end = write
 
 [flow/]
 tidb.destroy+new
 ^br.restore.s3
-[[quantify.stability.run.flow]] %delay=[[quantify.stability.run.delay]]
+[[flow]] %delay=[[delay]]
 bench.meta.config
 bench.run
-bench.scan.jitter
+env.map bench.run.begin quantify.[[event-prefix]].begin
+env.map bench.run.end quantify.[[event-prefix]].end
+bench.scan.jitter quantify.[[event-prefix]]
 bg.wait
 tidb.rm

@@ -44,4 +44,4 @@ bench.meta.db-name|db = read
 bench.meta.user = read
 
 [flow/]
-quantify.stability.run flow=quantify.stability.sub.kill-wait
+quantify.stability.run flow=quantify.stability.sub.kill-wait event-prefix=[[bench.tag]]

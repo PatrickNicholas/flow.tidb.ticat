@@ -37,3 +37,14 @@ You can run `quantify.stability.store-down` with workload config, for example:
 ```
 ticat quantify.workloads.yscb.1t : quantify.stability.store-down
 ```
+
+The result is saved in meta database, could be queried by:
+
+```
+# query qps & latency jitter
+SELECT * FROM event_jitter WHERE prefix = 'quantify.store-down';
+# query no-leader & no-region intervals
+SELECT * FROM durations WHERE event = 'tidb.watch.no-qps-jitter' and tag = 'store-down';
+SELECT * FROM durations WHERE event = 'tidb.watch.no-region' and tag = 'store-down';
+```
+
