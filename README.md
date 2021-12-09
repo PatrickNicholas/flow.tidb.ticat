@@ -27,3 +27,13 @@ You can change the running threads in `quantify/generic/config/<bench-tool>/work
 [val2env]
 bench.compare.threads = 200,300,400
 ```
+
+### Run stability test
+
+#### Simulate store down
+
+You can run `quantify.stability.store-down` with workload config, for example:
+
+```
+ticat quantify.workloads.yscb.1t : quantify.stability.store-down
+```
