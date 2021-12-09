@@ -48,3 +48,15 @@ SELECT * FROM durations WHERE event = 'tidb.watch.no-qps-jitter' and tag = 'stor
 SELECT * FROM durations WHERE event = 'tidb.watch.no-region' and tag = 'store-down';
 ```
 
+#### Simulate rolling restart
+
+You can run `quantify.stability.restart` with workload config like store dowm simulation. The result is saved in meta database, could be queried by:
+
+```
+# query qps & latency jitter
+SELECT * FROM event_jitter WHERE prefix = 'quantify.restart';
+# query reload duration
+SELECT * FROM durations WHERE event = 'tidb.reload' and tag = 'restart';
+```
+
+

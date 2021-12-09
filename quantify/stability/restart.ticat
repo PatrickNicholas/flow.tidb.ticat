@@ -15,6 +15,8 @@ s3_endpoint = ''
 s3_username = ''
 s3_password = ''
 
+bench-tag = 'restart'
+
 [arg2env]
 tidb.tiup.yaml = yaml
 tidb.cluster = cluster-name
@@ -25,16 +27,13 @@ bench.meta.host = meta-host
 bench.meta.port = meta-port
 bench.meta.db-name|db = meta-db
 bench.meta.user = meta-user
+bench.tag = bench-tag
 
 br.endpoint = s3_endpoint
 br.username = s3_username
 br.password = s3_password
 
 [val2env]
-bench.tag = restart
-br.backup-dir = 'patrick/baseline/ycsb-1T-400M'
-bench.ycsb.record-count = 400000000
-bench.ycsb.insert-count = 400000000
 
 br.threads = 1000
 br.checksum = false
@@ -46,5 +45,4 @@ bench.meta.db-name|db = read
 bench.meta.user = read
 
 [flow/]
-ycsb.config.min
-quantify.stability.run quantify.stability.sub.reload
+quantify.stability.run flow=quantify.stability.sub.reload event-prefix=[[bench-tag]]
