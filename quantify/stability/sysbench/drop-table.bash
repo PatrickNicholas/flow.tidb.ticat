@@ -21,5 +21,5 @@ for id in {${from}..${to}}; do
     table_names+=("sbtest${id}")
 done
 
-name_list=$(IFS=, ; echo "${foo[*]}")
+name_list=$(IFS=, ; echo "${table_names[*]}")
 my_exec "DROP TABLE IF EXISTS ${name_list}"
