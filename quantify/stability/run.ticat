@@ -12,8 +12,8 @@ quantify.[[event-prefix]].end = write
 [flow/]
 tidb.destroy+new
 ^br.restore.s3
-[[flow]] %delay=[[delay]]
 bench.meta.config
+[[flow]] %delay=[[delay]]
 bench.run
 env.map bench.run.begin quantify.[[event-prefix]].begin
 env.map bench.run.end quantify.[[event-prefix]].end
