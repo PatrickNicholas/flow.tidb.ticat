@@ -75,3 +75,11 @@ You can run `quantify.stability.drop-table`, the default workload is sysbench 1T
 SELECT * FROM event_jitter WHERE prefix = 'quantify.drop-table';
 ```
 
+#### Simulate backup
+
+You can run `quantify.stability.backup` with workload config like store down simulation. The result is saved in meta database, could be queried by:
+
+```
+# query qps & latency jitter
+SELECT * FROM event_jitter WHERE prefix = 'quantify.backup';
+```

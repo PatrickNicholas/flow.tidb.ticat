@@ -1,0 +1,7 @@
+help = backup current database into a tmp bucket
+
+[env]
+bench.begin = read
+
+[flow/]
+br.backup.s3 storage=recycledaily/backup/quantify_stability_backup_[[bench.begin]]
