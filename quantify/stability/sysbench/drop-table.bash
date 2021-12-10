@@ -17,7 +17,7 @@ function my_exec()
 }
 
 table_names=()
-for id in {${from}..${to}}; do
+for id in $(seq ${from} ${to}); do
     table_names+=("sbtest${id}")
 done
 
