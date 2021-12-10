@@ -50,7 +50,7 @@ SELECT * FROM durations WHERE event = 'tidb.watch.no-region' and tag = 'store-do
 
 #### Simulate rolling restart
 
-You can run `quantify.stability.restart` with workload config like store dowm simulation. The result is saved in meta database, could be queried by:
+You can run `quantify.stability.restart` with workload config like store down simulation. The result is saved in meta database, could be queried by:
 
 ```
 # query qps & latency jitter
@@ -59,4 +59,19 @@ SELECT * FROM event_jitter WHERE prefix = 'quantify.restart';
 SELECT * FROM durations WHERE event = 'tidb.reload' and tag = 'restart';
 ```
 
+#### Simulate add index
+
+You can run `quantify.stability.add-index`, the default workload is ycsb 1T. You need to change the flow if you want to use different workload. Query result:
+
+```
+SELECT * FROM event_jitter WHERE prefix = 'quantify.add-index';
+```
+
+#### Simlulate drop table
+
+You can run `quantify.stability.drop-table`, the default workload is sysbench 1T, the 1/10 tables will be dropped. You need to change the flow if you want to use different workload. Query result:
+
+```
+SELECT * FROM event_jitter WHERE prefix = 'quantify.drop-table';
+```
 
