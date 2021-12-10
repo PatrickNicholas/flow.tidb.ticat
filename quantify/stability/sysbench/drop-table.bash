@@ -10,7 +10,7 @@ user=`must_env_val "${env}" 'mysql.user'`
 from=`must_env_val "${env}" 'quantify.stability.drop-table.sysbench.from'`
 to=`must_env_val "${env}" 'quantify.stability.drop-table.sysbench.to'`
 
-function my_exe()
+function my_exec()
 {
 	local query="${1}"
 	mysql -h "${host}" -P "${port}" -u "${user}" --database=test -e "${query}"
