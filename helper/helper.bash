@@ -25,7 +25,7 @@ function generate_tikv_scale_out_yaml()
     local tikv_nodes="${1}"
     local yaml="/tmp/tikv_scale_out_$(timestamp).yaml"    
     echo 'tikv_servers:' >${yaml}
-    for node in ${node//,/ }; do
+    for node in ${tikv_nodes//,/ }; do
         echo "  - ip: ${node}" >>${yaml}
     done
     echo "${yaml}"
