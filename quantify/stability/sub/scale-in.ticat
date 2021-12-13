@@ -1,0 +1,11 @@
+help = scale in N tikv nodes
+
+[arg]
+count = 3
+
+[arg2env]
+quantify.stability.scale-in.count = count
+
+[flow/]
+tidb.select-nodes role=tikv count=[[quantify.stability.scale-in.count]]
+tidb.scale-in

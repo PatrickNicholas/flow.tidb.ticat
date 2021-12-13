@@ -1,0 +1,11 @@
+help = generate tikv scale out yaml
+
+[arg]
+nodes = ''
+
+[env]
+tidb.cluster = read
+tidb.tiup.yaml = write
+
+[dep]
+tiup = to scale out

@@ -1,0 +1,14 @@
+help = scale out tikv node
+
+[arg]
+nodes = 'tikv4-peer'
+
+[arg2env]
+quantify.stability.scale-out.nodes = nodes
+
+[env]
+quantify.stability.scale-out.nodes = read
+
+[flow/]
+quantify.stability.sub.scale-out-yaml [[quantify.stability.scale-out.nodes]]
+tidb.scale-out
