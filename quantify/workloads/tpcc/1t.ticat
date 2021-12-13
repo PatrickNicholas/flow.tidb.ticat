@@ -1,0 +1,6 @@
+help = config tpcc 1t workload
+
+[val2env]
+br.backup-dir = 'patrick/baseline/br-1T-6kwarehouse'
+bench.workload = tpcc
+bench.tpcc.warehouses = 6000
