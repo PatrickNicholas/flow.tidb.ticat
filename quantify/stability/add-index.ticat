@@ -45,5 +45,8 @@ bench.meta.db-name|db = read
 bench.meta.user = read
 
 [flow/]
+tidb.destroy+new
+^br.restore.s3
 quantify.workloads.ycsb.1t
 quantify.stability.run flow=quantify.stability.ycsb.add-index event-prefix=add-index
+tidb.rm

@@ -45,4 +45,7 @@ bench.meta.db-name|db = read
 bench.meta.user = read
 
 [flow/]
+tidb.destroy+new
+^br.restore.s3
 quantify.stability.run flow=quantify.stability.sub.reload event-prefix=[[bench-tag]]
+tidb.rm

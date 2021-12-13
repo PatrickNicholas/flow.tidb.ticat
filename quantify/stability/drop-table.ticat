@@ -50,5 +50,8 @@ bench.meta.db-name|db = read
 bench.meta.user = read
 
 [flow/]
+tidb.destroy+new
+^br.restore.s3
 quantify.workloads.sysbench.1t
 quantify.stability.run flow=quantify.stability.sysbench.drop-table event-prefix=drop-table
+tidb.rm
