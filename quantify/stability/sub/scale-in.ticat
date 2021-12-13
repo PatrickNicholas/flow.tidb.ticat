@@ -1,7 +1,7 @@
 help = scale in N tikv nodes
 
 [arg]
-count = 3
+count = 1
 
 [arg2env]
 quantify.stability.scale-in.count = count
