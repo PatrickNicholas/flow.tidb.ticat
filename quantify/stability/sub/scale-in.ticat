@@ -6,6 +6,14 @@ count = 1
 [arg2env]
 quantify.stability.scale-in.count = count
 
+[env]
+bench.scale-in.begin = write
+bench.scale-in.end = write
+
 [flow/]
+mark-time bench.scale-in.begin
 tidb.select-nodes role=tikv count=[[quantify.stability.scale-in.count]]
 tidb.scale-in
+tidb.watch.disk-usage-balanced
+mark-time bench.scale-in.end
+bench.duration.record bench.scale-in

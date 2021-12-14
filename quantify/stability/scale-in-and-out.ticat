@@ -44,6 +44,5 @@ bench.meta.user = read
 tidb.destroy+new
 ^br.restore.s3
 quantify.stability.run flow=quantify.stability.sub.scale-out event-prefix=scale-out
-tidb.watch.disk-usage-balanced
 quantify.stability.run flow=quantify.stability.sub.scale-in event-prefix=scale-in
 tidb.rm

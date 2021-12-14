@@ -8,7 +8,13 @@ quantify.stability.scale-out.nodes = nodes
 
 [env]
 quantify.stability.scale-out.nodes = read
+bench.scale-out.begin = write
+bench.scale-out.end = write
 
 [flow/]
+mark-time bench.scale-out.begin
 quantify.stability.sub.scale-out-yaml [[quantify.stability.scale-out.nodes]]
 tidb.scale-out
+tidb.watch.disk-usage-balanced
+mark-time bench.scale-out.end
+bench.duration.record bench.scale-out
