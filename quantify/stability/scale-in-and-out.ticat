@@ -14,6 +14,7 @@ meta-user = root
 s3_endpoint = ''
 s3_username = ''
 s3_password = ''
+bench-tag = 'scale-out-and-in'
 
 [arg2env]
 tidb.tiup.yaml = yaml
@@ -25,6 +26,7 @@ bench.meta.host = meta-host
 bench.meta.port = meta-port
 bench.meta.db-name|db = meta-db
 bench.meta.user = meta-user
+bench.tag = bench-tag
 
 br.endpoint = s3_endpoint
 br.username = s3_username
