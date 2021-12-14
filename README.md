@@ -33,7 +33,7 @@ bench.compare.threads = 200,300,400
 The stability test model is as follows:
 
 - asynchronously start a bg job to perform certain operations, such as randomly kill a store
-- start run workloads, and the workoad ends after a period of time
+- start run workloads, and the workload ends after a period of time
 - statistics and records QPS & Latency jitter during the workload running period
 - wait until bg job exit
 
@@ -54,13 +54,13 @@ ticat quantify.workloads.ycsb.1t
 You can run `quantify.stability.store-down` with workload config, for example:
 
 ```
-ticat quantify.workloads.yscb.1t : quantify.stability.store-down
+ticat quantify.workloads.ycsb.1t : quantify.stability.store-down
 ```
 
 The result includes:
 
 - QPS & Latency jitter during test
-- The intervals QPS jitter is completely recoveried from killing store
+- The intervals QPS jitter is completely recovery from killing store
 - The intervals All regions is completely migrated from killing store
 
 The result is saved in meta database, could be queried by:
@@ -87,7 +87,7 @@ SELECT * FROM durations WHERE event = 'tidb.reload' and tag = 'restart';
 The result includes:
 
 - QPS & Latency jitter during test
-- The intervals reload entrie pd and tikv nodes
+- The intervals reload entirely pd and tikv nodes
 
 #### Simulate add index
 
@@ -101,7 +101,7 @@ The result includes:
 
 - QPS & Latency jitter during test
 
-#### Simlulate drop table
+#### Simulate drop table
 
 You can run `quantify.stability.drop-table`, the default workload is sysbench 1T, the 1/10 tables will be dropped. You need to change the flow if you want to use different workload. Query result:
 
@@ -154,3 +154,17 @@ The default parameters will add one tikv node `tikv4-peer`, and scale in one tik
 - `quantify.stability.scale-in.count=3`
 
 ### dump result and upload to docs
+
+Install deps:
+
+```sh
+pip3 install requests python-fire mysql
+```
+
+Dump and upload:
+
+```sh
+python3 dumpling.py dump ${HOST} ${DATABASE} ${USER} > /tmp/sheets
+python3 dumpling.py upload /tmp/sheets
+```
+

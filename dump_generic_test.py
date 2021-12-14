@@ -66,8 +66,8 @@ def _dump_sysbench(writer, curs):
         params = _unpack_sysbench_params(workload_params[1:], concurrency_params)
         writer.writerow([
             workload_name,
-            row.qps,
-            row.tps,
+            round(row.qps / 600, 2),
+            round(row.tps / 600, 2),
             row.min,
             row.avg,
             row.p95,
@@ -133,9 +133,9 @@ def _dump_ycsb(writer, curs):
         ])
         
 
-ACCESS_TOKEN = None
+_ACCESS_TOKEN = None
 
-def validate_resp(url, r, expect=0):
+def _validate_resp(url, r, expect=0):
     if r.status_code != 200:
         raise IOError("request {}: {}, (code {})".format(url, r.text, r.status_code))
 
@@ -146,10 +146,10 @@ def validate_resp(url, r, expect=0):
     return value
 
 
-def get_access_token():
-    global ACCESS_TOKEN
-    if ACCESS_TOKEN is not None:
-        return ACCESS_TOKEN
+def _get_access_token():
+    global _ACCESS_TOKEN
+    if _ACCESS_TOKEN is not None:
+        return _ACCESS_TOKEN
 
     url = 'https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal'
     headers = {'Content-Type': 'application/json; charset=utf-8'}
@@ -158,21 +158,21 @@ def get_access_token():
         'app_secret': os.getenv('APP_SECRET'),
     }
     r = requests.post(url, json=payload, headers=headers)
-    value = validate_resp(url, r)
-    ACCESS_TOKEN = 'Bearer {}'.format(value['tenant_access_token'])
-    return ACCESS_TOKEN
+    value = _validate_resp(url, r)
+    _ACCESS_TOKEN = 'Bearer {}'.format(value['tenant_access_token'])
+    return _ACCESS_TOKEN
 
     
-def query_import_url(ticket):
+def _query_import_url(ticket):
     url = 'https://open.feishu.cn/open-apis/sheets/v2/import/result'
     payload = {'ticket': ticket}
-    headers = {'Authorization': get_access_token()}
+    headers = {'Authorization': _get_access_token()}
     r = requests.get(url, params=payload, headers=headers)
-    resp = validate_resp(url, r, expect=90228)
+    resp = _validate_resp(url, r, expect=90228)
     if resp.get('code') == 90228:
         # in progress
         sleep(1)
-        return query_import_url(ticket)
+        return _query_import_url(ticket)
 
     data = resp.get('data', {})
     if data.get('warningCode') != 0:
@@ -180,31 +180,31 @@ def query_import_url(ticket):
     return data.get('url')
 
 
-def upload_sheets(folder_token, name, content):
+def _upload_sheets(folder_token, name, content):
     url = 'https://open.feishu.cn/open-apis/sheets/v2/import'
-    headers = {'Authorization': get_access_token()}
+    headers = {'Authorization': _get_access_token()}
     payload = {
         'name': name,
         'file': content,
         'folderToken': folder_token,
     }
     r = requests.post(url, json=payload, headers=headers)
-    resp = validate_resp(url, r)
+    resp = _validate_resp(url, r)
     data = resp.get('data', {})
     ticket = data.get('ticket')
-    return query_import_url(ticket)
+    return _query_import_url(ticket)
 
 
-def query_app_root_meta():
+def _query_app_root_meta():
     url = 'https://open.feishu.cn/open-apis/drive/explorer/v2/root_folder/meta'
-    headers = {'Authorization': get_access_token()}
+    headers = {'Authorization': _get_access_token()}
     r = requests.get(url, headers=headers)
-    resp = validate_resp(url, r)
+    resp = _validate_resp(url, r)
     data = resp.get('data', {})
     return data.get('token')
 
 
-def send_notice(urls):
+def _send_notice(urls):
     hook_id = os.getenv("NOTICE_HOOK_ID")
     url = 'https://open.feishu.cn/open-apis/bot/v2/hook/{}'.format(hook_id)
     headers = {'Content-Type': 'application/json' }
@@ -219,7 +219,7 @@ def send_notice(urls):
         raise IOError("request {}: {}, (code {})".format(url, r.text, r.status_code))
     
 
-def main(host, database, user):
+def main(host, database, user, upload=False):
     config = {
       'user': user,
       'host': host,
@@ -229,8 +229,8 @@ def main(host, database, user):
     
     mapping = {   # comp => method
         "sysbench": _dump_sysbench,
-        "tpcc": _dump_tpcc,
-        "ycsb": _dump_ycsb,
+        # "tpcc": _dump_tpcc,
+        # "ycsb": _dump_ycsb,
     }
 
     files = {}
@@ -243,6 +243,9 @@ def main(host, database, user):
             method(writer, curs)
     curs.close()
     conn.close()
+    
+    if not upload:
+        return
 
     urls = []
     now = datetime.now()
@@ -251,9 +254,9 @@ def main(host, database, user):
         with open(filename, 'rb') as file:
             name = now.strftime('%Y-%m-%d %H:%M-generic-{}.csv'.format(comp))
             content = file.read()
-            urls.append(upload_sheets(folder_token, name, [x for x in content]))
+            urls.append(_upload_sheets(folder_token, name, [x for x in content]))
     
-    send_notice(urls)
+    _send_notice(urls)
                 
     for (_, name) in files.items():
         os.remove(name)
