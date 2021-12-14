@@ -1,0 +1,16 @@
+help = config ycsb 100m workload
+
+[arg]
+workload = workloada
+
+[arg2env]
+bench.ycsb.workload = workload
+
+[val2env]
+br.backup-dir = 'benchmark/ycsb-100m-v5.0.0'
+bench.workload = ycsb
+bench.ycsb.record-count = 400000
+bench.ycsb.insert-count = 400000
+
+[flow/]
+ycsb.config.min
