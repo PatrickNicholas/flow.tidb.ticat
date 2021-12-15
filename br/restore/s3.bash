@@ -1,7 +1,8 @@
 set -euo pipefail
 . "`cd $(dirname ${BASH_SOURCE[0]}) && pwd`/../../helper/helper.bash"
 
-env=`cat "${1}/env"`
+session="${1}"
+env=`cat "${session}/env"`
 
 endpoint=`must_env_val "${env}" 'br.endpoint'`
 username=`must_env_val "${env}" 'br.username'`
@@ -38,4 +39,4 @@ env AWS_ACCESS_KEY_ID="${username}" \
         --s3.endpoint "${endpoint}" \
         -s "s3://${dir}" \
         --check-requirements=false${checksum} \
-        --concurrency "${threads}" > /tmp/restore-`date +%s`.log 2>&1
+        --concurrency "${threads}" > ${session}/restore-`date +%s`.log 2>&1

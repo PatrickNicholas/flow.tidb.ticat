@@ -49,6 +49,18 @@ ticat quantify.workloads.tpcc.1t
 ticat quantify.workloads.ycsb.1t
 ```
 
+It is hardly to determine how much pressure is more appropriate. So user should decide by yours experiences. You could config the pressures in env key:
+
+- ycsb:
+  - `bench.ycsb.threads`: the running threads
+  - `bench.ycsb.operation-count`: how many operations are performed. This is also the only parameter that affects the execution time of ycsb. 
+- tpcc:
+  - `bench.tpcc.duration`: eg, 30m, 1800s
+  - `bench.tpcc.threads`: the running threads
+- sysbench:
+  - `bench.sysbench.duration`: in seconds
+  - `bench.sysbench.threads`: the running threads
+
 #### Simulate store down
 
 You can run `quantify.stability.store-down` with workload config, for example:
