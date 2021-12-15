@@ -1,0 +1,16 @@
+help = config ycsb 1t workload but parameters is prepared for drop table.
+
+[arg]
+test-name = oltp_read_write
+
+[arg2env]
+bench.sysbench.test-name = test-name
+
+[val2env]
+br.backup-dir = 'patrick/baseline/sysbench-1T-1ktable-3000krow'
+bench.workload = sysbench
+bench.sysbench.tables = 900
+bench.sysbench.table-size = 3000000
+
+quantify.stability.drop-table.sysbench.from = 901
+quantify.stability.drop-table.sysbench.to = 1000
