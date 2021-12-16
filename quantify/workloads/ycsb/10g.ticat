@@ -1,0 +1,16 @@
+help = config ycsb 10g workload
+
+[arg]
+workload = workloada
+
+[arg2env]
+bench.ycsb.workload = workload
+
+[val2env]
+br.backup-dir = 'patrick/baseline/ycsb-10G-4M'
+bench.workload = ycsb
+bench.ycsb.record-count = 4000000
+bench.ycsb.insert-count = 4000000
+
+[flow/]
+ycsb.config.min

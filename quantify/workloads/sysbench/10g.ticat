@@ -1,0 +1,13 @@
+help = config ycsb 10g workload
+
+[arg]
+test-name = oltp_read_write
+
+[arg2env]
+bench.sysbench.test-name = test-name
+
+[val2env]
+bench.workload = sysbench
+br.backup-dir = 'patrick/baseline/sysbench-10G-100table-300krow'
+bench.sysbench.tables = 100
+bench.sysbench.table-size = 300000
