@@ -3,8 +3,8 @@ help =
 [val2env]
 bench.workload = ycsb
 bench.ycsb.workload = workloada
-bench.ycsb.load.threads = 1000
-bench.ycsb.threads = 1000
+bench.ycsb.load.threads = 64
+bench.ycsb.threads = 64
 
 [env]
 quantify.prepare.ycsb.storage = read
