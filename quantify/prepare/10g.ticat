@@ -1,0 +1,62 @@
+help = load and backup 10g baseline dataset
+
+[arg]
+yaml = ''
+cluster-name|cluster|name|N = ''
+version|v = ''
+confirm|cfm = off
+
+ycsb-repo-address|yscb-repo = ''
+
+meta-host = ''
+meta-port = ''
+meta-db = ''
+meta-user = root
+
+s3_endpoint = ''
+s3_username = ''
+s3_password = ''
+
+tools = sysbench,tpcc,ycsb
+
+[arg2env]
+tidb.tiup.yaml = yaml
+tidb.cluster = cluster-name
+tidb.version = version
+tidb.op.confirm = confirm
+
+bench.meta.host = meta-host
+bench.meta.port = meta-port
+bench.meta.db-name|db = meta-db
+bench.meta.user = meta-user
+
+bench.ycsb.repo-address = yscb-repo-address
+
+br.endpoint = s3_endpoint
+br.username = s3_username
+br.password = s3_password
+
+quantify.prepare.tools = tools
+
+[val2env]
+quantify.prepare.tpcc.storage = 'patrick/baseline/br-10G-60warehouse'
+bench.tpcc.warehouses = 60
+
+quantify.prepare.sysbench.storage = 'patrick/baseline/sysbench-10G-100table-300krow'
+bench.sysbench.tables = 100
+bench.sysbench.table-size = 300000
+
+quantify.prepare.ycsb.storage = 'patrick/baseline/ycsb-10G-4M'
+bench.ycsb.record-count = 4000000
+bench.ycsb.insert-count = 4000000
+
+br.threads = 1000
+
+[env]
+bench.meta.host = read
+bench.meta.port = read
+bench.meta.db-name|db = read
+bench.meta.user = read
+
+[flow/]
+** quantify.prepare.[[*quantify.prepare.tools*]] **
