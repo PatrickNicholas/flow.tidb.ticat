@@ -60,6 +60,25 @@ It is hardly to determine how much pressure is more appropriate. So user should 
 - sysbench:
   - `bench.sysbench.duration`: in seconds
   - `bench.sysbench.threads`: the running threads
+  
+At the same time, you should specify the env key for backup and restore:
+
+- `br.endpoint`
+- `br.username`
+- `br.password`
+
+If you choice ycsb workloads, you also need to specify the ycsb repo address by:
+
+- `bench.ycsb.repo-address`
+
+Here is an example about how to build ycsb tarball:
+
+```sh
+git clone git@github.com:pingcap/go-ycsb.git
+make -C go-ycsb
+tar -czf go-ycsb.tar.gz ./go-ycsb/bin/go-ycsb ./go-ycsb/workloads/*
+python -m SimpleHTTPServer 9090
+```
 
 #### Simulate store down
 

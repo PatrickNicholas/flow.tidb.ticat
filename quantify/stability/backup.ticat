@@ -42,6 +42,7 @@ bench.meta.db-name|db = read
 bench.meta.user = read
 
 [flow/]
+quantify.generic.config.hack-yaml yaml=[[tidb.tiup.yaml]]
 tidb.destroy+new
 ^br.restore.s3
 quantify.stability.run flow=quantify.stability.sub.backup event-prefix=backup

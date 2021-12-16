@@ -1,7 +1,11 @@
 help = run generic test flow with workload and record qps & lantecy metrics
 abbr = run
 
+[env]
+tidb.tiup.yaml = read
+
 [flow/]
+quantify.generic.config.hack-yaml yaml=[[tidb.tiup.yaml]]
 tidb.destroy+new
 ^br.restore.s3
 ^compare.threads bench.run
