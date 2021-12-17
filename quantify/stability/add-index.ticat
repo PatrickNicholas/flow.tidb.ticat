@@ -46,8 +46,8 @@ bench.meta.user = read
 
 [flow/]
 quantify.generic.config.hack-yaml yaml=[[tidb.tiup.yaml]]
+quantify.workloads.ycsb.1t
 tidb.destroy+new
 ^br.restore.s3
-quantify.workloads.ycsb.1t
 quantify.stability.run flow=quantify.stability.ycsb.add-index event-prefix=add-index
 tidb.rm
