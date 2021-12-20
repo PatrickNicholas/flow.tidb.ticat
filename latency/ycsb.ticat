@@ -1,0 +1,59 @@
+help = 'run ycsb workloada'
+
+[arg]
+yaml = ''
+cluster-name|cluster|name|N = ''
+version|v = ''
+confirm|cfm = off
+
+ycsb-repo-address|ycsb-repo = ''
+ycsb-operation-count|ycsb-op-count = ''
+
+meta-host = ''
+meta-port = ''
+meta-db = ''
+meta-user = root
+
+s3_endpoint = ''
+s3_username = ''
+s3_password = ''
+
+[arg2env]
+tidb.tiup.yaml = yaml
+tidb.cluster = cluster-name
+tidb.version = version
+tidb.op.confirm = confirm
+
+bench.meta.host = meta-host
+bench.meta.port = meta-port
+bench.meta.db-name|db = meta-db
+bench.meta.user = meta-user
+
+bench.ycsb.repo-address = ycsb-repo-address
+bench.ycsb.operation-count = ycsb-operation-count
+
+br.endpoint = s3_endpoint
+br.username = s3_username
+br.password = s3_password
+
+[val2env]
+br.backup-dir = 'patrick/baseline/ycsb-1T-400M'
+bench.ycsb.record-count = 400000000
+bench.ycsb.insert-count = 400000000
+bench.ycsb.workload = workloada
+
+br.threads = 1000
+br.checksum = false
+
+[env]
+bench.compare.threads = 800,1000,1200
+bench.meta.host = read
+bench.meta.port = read
+bench.meta.db-name|db = read
+bench.meta.user = read
+
+[flow/]
+ycsb.config.min
+tidb.destroy+new
+^br.restore.s3
+bench.run
